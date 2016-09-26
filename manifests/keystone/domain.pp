@@ -70,11 +70,11 @@ class magnum::keystone::domain (
 # a custom type to get ID.
 
   magnum_config {
-    #'trust/trustee_domain_id':
-    #  value => $domain_name;
+    'trust/trustee_domain_name':
+      value => $domain_name;
 
-    #'trust/trustee_domain_admin_id':
-    #  value => $domain_admin;
+    'trust/trustee_domain_admin_name':
+      value => $domain_admin;
 
     'trust/trustee_domain_admin_password':
       value  => $domain_password,
