@@ -14,10 +14,12 @@ class magnum::client (
 
   include ::magnum::params
 
-  package { 'python-magnumclient':
-    ensure => $package_ensure,
-    name   => $::magnum::params::client_package,
-    tag    => 'openstack',
+  if $::magnum::params::client_package {
+  	package { 'python-magnumclient':
+      ensure => $package_ensure,
+      name   => $::magnum::params::client_package,
+      tag    => 'openstack',
+    }
   }
 
 }

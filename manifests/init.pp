@@ -79,6 +79,10 @@ class magnum(
   $rabbit_virtual_host = $::os_service_default,
   $rabbit_password     = $::os_service_default,
   $rabbit_use_ssl      = $::os_service_default,
+  $rabbit_heartbeat_timeout_threshold     = $::os_service_default,
+  $rabbit_heartbeat_rate                  = $::os_service_default,
+  $rabbit_ha_queues                       = $::os_service_default,
+  $amqp_durable_queues                    = $::os_service_default,
   $kombu_ssl_ca_certs  = $::os_service_default,
   $kombu_ssl_certfile  = $::os_service_default,
   $kombu_ssl_keyfile   = $::os_service_default,
@@ -91,10 +95,12 @@ class magnum(
   include ::magnum::policy
   include ::magnum::db
 
-  package { 'magnum-common':
-    ensure => $package_ensure,
-    name   => $::magnum::params::common_package,
-    tag    => ['openstack', 'magnum-package'],
+  if $::magnum::params::common_package {
+    package { 'magnum-common':
+      ensure => $package_ensure,
+      name   => $::magnum::params::common_package,
+      tag    => ['openstack', 'magnum-package'],
+    }
   }
 
   resources { 'magnum_config':
@@ -115,6 +121,10 @@ class magnum(
       rabbit_port         => $rabbit_port,
       rabbit_hosts        => $rabbit_hosts,
       rabbit_use_ssl      => $rabbit_use_ssl,
+      rabbit_ha_queues            => $rabbit_ha_queues,
+      heartbeat_timeout_threshold => $rabbit_heartbeat_timeout_threshold,
+      heartbeat_rate              => $rabbit_heartbeat_rate,
+      amqp_durable_queues         => $amqp_durable_queues,
       kombu_ssl_version   => $kombu_ssl_version,
       kombu_ssl_keyfile   => $kombu_ssl_keyfile,
       kombu_ssl_certfile  => $kombu_ssl_certfile,

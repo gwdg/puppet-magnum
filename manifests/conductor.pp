@@ -32,12 +32,14 @@ class magnum::conductor(
   include ::magnum::params
 
   # Install package
-  Package['magnum-conductor'] -> Service['magnum-conductor']
-  package { 'magnum-conductor':
-    ensure => $package_ensure,
-    name   => $::magnum::params::conductor_package,
-    tag    => ['openstack', 'magnum-package']
-  }
+  if $::magnum::params::conductor_package {
+    Package['magnum-conductor'] -> Service['magnum-conductor']
+    package { 'magnum-conductor':
+      ensure => $package_ensure,
+      name   => $::magnum::params::conductor_package,
+      tag    => ['openstack', 'magnum-package']
+    }
+  } 
 
   if $manage_service {
     if $enabled {

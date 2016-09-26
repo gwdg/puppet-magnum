@@ -15,13 +15,13 @@ class magnum::params {
     }
     'Debian': {
       # package names
-      $common_package         = 'magnum-common'
-      $api_package            = 'magnum-api'
-      $conductor_package      = 'magnum-conductor'
+      $common_package         = undef
+      $api_package            = undef
+      $conductor_package      = undef
       # service names
       $api_service            = 'magnum-api'
       $conductor_service      = 'magnum-conductor'
-      $client_package         = 'python-magnumclient'
+      $client_package         = undef
     }
     default: {
       fail("Unsupported osfamily: ${::osfamily} operatingsystem")
