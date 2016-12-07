@@ -10,7 +10,13 @@ describe 'magnum::db::sync' do
         :path        => '/usr/bin',
         :user        => 'magnum',
         :refreshonly => 'true',
-        :logoutput   => 'on_failure'
+        :try_sleep   => 5,
+        :tries       => 10,
+        :logoutput   => 'on_failure',
+        :subscribe   => ['Anchor[magnum::install::end]',
+                         'Anchor[magnum::config::end]',
+                         'Anchor[magnum::dbsync::begin]'],
+        :notify      => 'Anchor[magnum::dbsync::end]',
       )
     end
 
@@ -27,7 +33,13 @@ describe 'magnum::db::sync' do
           :path        => '/usr/bin',
           :user        => 'magnum',
           :refreshonly => 'true',
-          :logoutput   => 'on_failure'
+          :try_sleep   => 5,
+          :tries       => 10,
+          :logoutput   => 'on_failure',
+          :subscribe   => ['Anchor[magnum::install::end]',
+                           'Anchor[magnum::config::end]',
+                           'Anchor[magnum::dbsync::begin]'],
+          :notify      => 'Anchor[magnum::dbsync::end]',
         )
     }
     end

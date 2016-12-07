@@ -224,6 +224,8 @@ class magnum::keystone::authtoken(
   $token_cache_time               = $::os_service_default,
 ) {
 
+  include ::magnum::deps
+
   keystone::resource::authtoken { 'magnum_config':
     username                       => $username,
     password                       => $password,
