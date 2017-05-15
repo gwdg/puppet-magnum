@@ -94,6 +94,10 @@ class magnum(
   $rabbit_userid         = $::os_service_default,
   $rabbit_virtual_host   = $::os_service_default,
   $rabbit_password       = $::os_service_default,
+  $rabbit_heartbeat_timeout_threshold     = $::os_service_default,
+  $rabbit_heartbeat_rate                  = $::os_service_default,
+  $rabbit_ha_queues                       = $::os_service_default,
+  $amqp_durable_queues                    = $::os_service_default,
 ) {
 
   include ::magnum::deps
@@ -126,6 +130,10 @@ class magnum(
       rabbit_port         => $rabbit_port,
       rabbit_hosts        => $rabbit_hosts,
       rabbit_use_ssl      => $rabbit_use_ssl,
+      rabbit_ha_queues            => $rabbit_ha_queues,
+      heartbeat_timeout_threshold => $rabbit_heartbeat_timeout_threshold,
+      heartbeat_rate              => $rabbit_heartbeat_rate,
+      amqp_durable_queues         => $amqp_durable_queues,
       kombu_ssl_version   => $kombu_ssl_version,
       kombu_ssl_keyfile   => $kombu_ssl_keyfile,
       kombu_ssl_certfile  => $kombu_ssl_certfile,
